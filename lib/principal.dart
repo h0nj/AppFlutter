@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/sobre_nos.dart';
 import 'package:flutter_application_1/utilitario.dart';
@@ -18,49 +20,106 @@ class principal extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            //Botão que redireciona para a página SOBRE NÓS
-              FlatButton(
-                color: Colors.black,
-                textColor: Colors.white,
-                child: Text('Primeiro Crud'),
-                onPressed: () {
-                  Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => cad_imoveis()));
-                },
-            ),
-            //BOTÃO QUE REDIRECIONA PRO PRIMEIRO CRUD
-            FlatButton(
-                color: Colors.black,
-                textColor: Colors.white,
-                child: Text('Segundo Crud'),
-                onPressed: () {
-                  Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => cad_terreno()));
-                },
-            ),
-            //BOTÃO QUE REDIRECIONA PRO PRIMEIRO CRUD
-            FlatButton(
-                color: Colors.black,
-                textColor: Colors.white,
-                child: Text('Utilitário'),
-                onPressed: () {
-                  Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => utilitario()));
-                },
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children:[
+              SizedBox(
+                height: 30,
+                width: 150,
+                  child :TextButton(
+                    style: TextButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    elevation: 15,
+                    shadowColor: Colors.blue,
+                  ),
+                  // ignore: prefer_const_constructors
+                  child: Text(
+                    'Cadastrar Imovel',
+                    // ignore: prefer_const_constructors
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                    onPressed: () {
+                      Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => cad_imoveis()));
+                    },
+                  )
+              ),
+
+
+              SizedBox(
+                height: 30,
+                width: 150,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  elevation: 15,
+                  shadowColor: Colors.blue,
+                ),
+                // ignore: prefer_const_constructors
+                child: Text(
+                  'Cadastrar Terreno',
+                  // ignore: prefer_const_constructors
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                  onPressed: () {
+                    Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => cad_terreno()));
+                  },
+                ),
             ),
 
-            FlatButton(
-                color: Colors.black,
-                textColor: Colors.white,
-                child: Text('Sobre Nós'),
+
+              SizedBox(
+                height: 30,
+                width: 150,
+                child:TextButton(
+                  style: TextButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  elevation: 15,
+                  shadowColor: Colors.blue,
+                ),
+                // ignore: prefer_const_constructors
+                child: Text(
+                  'Utilitário',
+                  // ignore: prefer_const_constructors
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                  onPressed: () {
+                    Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => utilitario()));
+                  },
+                ),
+              ),
+
+
+            SizedBox(
+                height: 30,
+                width: 150,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                backgroundColor: Colors.black,
+                elevation: 15,
+                shadowColor: Colors.blue,
+              ),
+              // ignore: prefer_const_constructors
+              child: Text(
+                'Sobre Nós',
+                // ignore: prefer_const_constructors
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
                 onPressed: () {
                   Navigator.push(context,
                   MaterialPageRoute(builder: (context) => sobre_nos()));
                 },
+              ),
             ),
-
           ],
         ),
       )
