@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/helpers/DatabaseHelper.dart';
 import 'principal.dart';
 
 void main() {
@@ -12,6 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      title: 'Login',
       debugShowCheckedModeBanner: false,
       home: WidgetLogin(),
     );
@@ -38,10 +38,9 @@ class _WidgetLoginState extends State<WidgetLogin> {
     setState(() {
       if (email.isEmpty && password.isEmpty) {
         logado = "Login não pode ser realizado, verifique suas informações.";
-      } else if(email == "jhonatazadesouza@hotmail.com" && password == "123456") {
+      } else if(email == "jhonatazadesouza@hotmail.com" && password == "123") {
         logado = "Bem Vindo.";
-        // Navigator.push(context, MaterialPageRoute(builder: (context) => MyAppAlt()));
-        Navigator.push(context, MaterialPageRoute(
+        Navigator.pushReplacement(context, MaterialPageRoute(
           builder: (_) => principal()
         ));
       } else {

@@ -2,22 +2,24 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/helpers/DatabaseHelper.dart';
+import 'principal.dart';
+
+void main() => runApp(cad_imoveis());
 
 class cad_imoveis extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SQFlite',
+      title: 'Cadastro de Imoveis',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
       ),
-      home: MyCrudImoveis(),
+      home: MyHomePage(),
     );
   }
 }
 
-class MyCrudImoveis extends StatelessWidget {
+class MyHomePage extends StatelessWidget {
   // Referencia nossa classe single para gerencia o BANCO
   final dbHelper = DataBaseHelper.instance;
 
@@ -26,23 +28,33 @@ class MyCrudImoveis extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('CRUD SQFlite'),
+        backgroundColor: Colors.black,
+        title: Text('Cadastro de Imoveis'),
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            TextButton(
-                child: Text(
+            SizedBox(
+              height: 30,
+              width: 200,
+
+            child : ElevatedButton(
+                  child: Text(
                   'Inserir dados',
                   style: TextStyle(fontSize: 20),
                 ),
                 onPressed: () {
                   _inserir();
                 },
-                style: TextButton.styleFrom(backgroundColor: Colors.blue)),
-            SizedBox(height: 10.0),
-            TextButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.black)),
+            ),
+            
+
+            SizedBox(
+              height: 30,
+              width: 200,
+            child :ElevatedButton(
                 // ignore: sort_child_properties_last
                 child: Text(
                   'Consultar dados',
@@ -51,9 +63,12 @@ class MyCrudImoveis extends StatelessWidget {
                 onPressed: () {
                   _consultar();
                 },
-                style: TextButton.styleFrom(backgroundColor: Colors.blue)),
-            SizedBox(height: 10.0),
-            TextButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.black)),
+            ),
+            SizedBox(
+              height: 30,
+              width: 200,
+                child: ElevatedButton(
                 child: Text(
                   'Atualizar dados',
                   style: TextStyle(fontSize: 20),
@@ -61,9 +76,14 @@ class MyCrudImoveis extends StatelessWidget {
                 onPressed: () {
                   _atualizar();
                 },
-                style: TextButton.styleFrom(backgroundColor: Colors.blue)),
-            SizedBox(height: 10.0),
-            TextButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.black)),
+            ),
+
+
+            SizedBox(
+              height: 30,
+              width: 200,
+            child: ElevatedButton(
                 child: Text(
                   'Deletar dados',
                   style: TextStyle(fontSize: 20),
@@ -71,7 +91,22 @@ class MyCrudImoveis extends StatelessWidget {
                 onPressed: () {
                   _deletar();
                 },
-                style: TextButton.styleFrom(backgroundColor: Colors.blue)),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.black)),
+            ),
+
+            SizedBox(
+            child: ElevatedButton(
+                child: Text(
+                  'Voltar',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(
+                  builder: (_) => principal()
+        ));
+                },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.black)),
+            ),
           ],
         ),
       ),
@@ -84,9 +119,9 @@ class MyCrudImoveis extends StatelessWidget {
   void _inserir() async {
     //linha para ser inserida
     Map<String, dynamic> row = {
-      DataBaseHelper.columNome: 'Jhonata',
-      DataBaseHelper.columIdade: 20,
-      DataBaseHelper.columProfissao: 'TI Infraestrutura',
+      DataBaseHelper.columRua: 'Rua Rita Siqueira Serrano',
+      DataBaseHelper.columBairro: 'São Cristovao',
+      DataBaseHelper.columValor: '500.00',
     };
     final id = await dbHelper.insert(row);
     print('Linha inserida id: $id');
@@ -104,9 +139,9 @@ class MyCrudImoveis extends StatelessWidget {
     // linha para atualizar
     Map<String, dynamic> row = {
       DataBaseHelper.columId: 1,
-      DataBaseHelper.columNome: 'Claudio',
-      DataBaseHelper.columIdade: 50,
-      DataBaseHelper.columProfissao: 'Contabilidade',
+      DataBaseHelper.columRua: 'Rua Alameda das Flores',
+      DataBaseHelper.columBairro: 'Centro',
+      DataBaseHelper.columValor: '500.00',
     };
     final linhasAfetadas = await dbHelper.update(row);
     print('Atualizadas $linhasAfetadas linha(s)');

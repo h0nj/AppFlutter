@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
-class sobre_nos extends StatefulWidget {
-  const sobre_nos({Key? key}) : super(key: key);
-  @override
-  State<sobre_nos> createState() => _sobre_nosState();
-}
 
-class _sobre_nosState extends State<sobre_nos> {
+class  sobre_nos extends StatelessWidget {
+  const sobre_nos({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
         title: Text('Sobre Nós'),
+        backgroundColor: Colors.black,
       ),
-
       body: Center(
-        child: Text('Teste'),
-      ),
+        child: Text('Sobre Nós'),
+      )
     );
-
   }
 }

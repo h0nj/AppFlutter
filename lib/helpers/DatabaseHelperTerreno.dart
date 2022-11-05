@@ -9,10 +9,10 @@ import 'package:path_provider/path_provider.dart';
 
 class DataBaseHelper {
   // Final uma vez atribuido o valor não sofrerá alteração
-  static final _databaseName = 'Imoveis.db';
+  static final _databaseName = 'Terrenos.db';
   static final _databaseVersion = 1;
 
-  static final table = 'cadImoveis';
+  static final table = 'cadTerrenos';
 
   static final columId = 'id';
   static final columRua = 'Rua';
