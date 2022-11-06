@@ -82,6 +82,7 @@ class _WidgetLoginState extends State<WidgetLogin> {
       minWidth: MediaQuery.of(context).size.width,
       padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
           child: Text(
             'Entrar',
             textAlign: TextAlign.center,
