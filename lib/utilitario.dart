@@ -125,13 +125,18 @@ class _utilitarioState extends State<utilitario> {
               Padding(
                 padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                 child: Container(
-                  height: 50,
-                  child: TextButton(
+                  height: 40,
+                  width: 10,
+                  // ignore: prefer_const_constructors
+                  child: ElevatedButton(
                     onPressed: (){
                       if(_formKey.currentState!.validate()){
                         _calcular();
                       }
                     },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.black,
+                    ),
                     child: Text('Calcular',style: TextStyle(color: Colors.white, fontSize: 20.0),),
                   ),
                 ),
