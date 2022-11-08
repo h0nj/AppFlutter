@@ -14,12 +14,12 @@ class cad_imoveis extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
       ),
-      home: MyHomePage(),
+      home: MyHomeImoveis(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomeImoveis extends StatelessWidget {
   // Referencia nossa classe single para gerencia o BANCO
   final dbHelper = DataBaseHelper.instance;
 
