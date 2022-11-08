@@ -38,6 +38,13 @@ class _WidgetLoginState extends State<WidgetLogin> {
     setState(() {
       if (email.isEmpty && password.isEmpty) {
         logado = "Login não pode ser realizado, verifique suas informações.";
+
+      }else if(email.length < 15 ){
+        logado = "Informe um E-mail válido.";
+
+      }else if (password.length < 3 ){
+        logado = "Senha fraca, faça contato com o ADMIN.";
+
       } else if(email == "jhonatazadesouza@hotmail.com" && password == "123") {
         logado = "Bem Vindo.";
         Navigator.pushReplacement(context, MaterialPageRoute(

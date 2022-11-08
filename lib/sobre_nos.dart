@@ -14,7 +14,7 @@ class MyHomeSobreNos extends State<sobre_nos> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: Text('Sobre Nós'),
+        title: Text('Sobre o Autor'),
       ),
       body: buildListView(),
     );
@@ -22,19 +22,37 @@ class MyHomeSobreNos extends State<sobre_nos> {
   buildListView(){
     return ListView(
       children: [
+        Icon(Icons.house_rounded, size: 120.0, color: Colors.black),
         ListTile(
-          title: Text("Jhonata de Souza Silva"),
-        ),
-        ListTile(
+          leading: Icon(Icons.notifications_rounded ),
           title: Text("Objetivo:"),
           subtitle: Text('O aplicativo foi criado com o intuito de agilizar as pessoas a encontrarem '
           'sua nova residência de maneira mais prática.'),
         ),
         ListTile(
-          leading: Icon(Icons.account_circle),
-          title: Text("Contato:"),
+          leading: Icon(Icons.mark_email_unread_rounded),
+          title: Text("E-mail:"),
           subtitle: Text("jhonatazadesouza@hotmail.com \n"
-          '32 99802-6486'),
+          ),
+        ),
+        ListTile(
+          leading: Icon(Icons.contact_phone_rounded),
+          title: Text("Telefone:"),
+          subtitle: Text("(32)99802-6486"
+          ),
+          
+        ),
+        ListTile(
+          leading: Icon(Icons.dataset_linked_rounded),
+          title: Text("Rede para contato:"),
+          subtitle: Text("https://www.linkedin.com/in/jhonata-souza1812/"
+          ),
+        ),
+        ListTile(
+          leading: Icon(Icons.computer_rounded),
+          title: Text("GitHub:"),
+          subtitle: Text("https://github.com/h0nj"
+          ),
         ),
       ],
     );

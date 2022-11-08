@@ -1,245 +1,162 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
-import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:intl/intl.dart';
-import 'principal.dart';
+
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: utilitario(),
+  ));
+}
 
 class utilitario extends StatefulWidget {
-  const utilitario({super.key});
-
   @override
-  State<utilitario> createState() => _utilitarioState();
+  _utilitarioState createState() => _utilitarioState();
 }
 
 class _utilitarioState extends State<utilitario> {
-  TextStyle _textStyle = TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600);
-  static final NumberFormat formatoReal =
-      NumberFormat.currency(locale: 'pt_BR');
-  double _investimentoMensal = 0;
-  int _anosInvestindo = 0;
-  int _rentabilidadeAnual = 0;
-  double _valorInvestido = 0;
-  double _jurosAcumulados = 0;
-  double _resultado = 0;
 
-  atualizarValorInvestido() {
-    setState(() {
-      _valorInvestido = _investimentoMensal * (_anosInvestindo * 12);
-    });
+  double _tempoAPagar = 0;
+  double _vlrInicialCasa = 0;
+  double _vlraSerPagocmJuros = 0;
+  int _time = 0;
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+    TextEditingController valorCasa = TextEditingController();
+    TextEditingController pagamentoInicial = TextEditingController();
+    TextEditingController tempoPagar = TextEditingController();
+
+  void _resetFields()
+  {
+      valorCasa.text = '';
+      pagamentoInicial.text = '';
+      tempoPagar.text = '';
+      setState(() {
+          int _tempoAPagar = 0;
+          double _vlrInicialCasa = 0;
+          double _vlraSerPagocmJuros = 0;
+      
+        _formKey = GlobalKey<FormState>();
+      });
   }
 
-  atualizarResultado() {
-    setState(() {
-      _resultado = (_investimentoMensal *
-              (pow(1 + (_rentabilidadeAnual / 12 / 100),
-                      (_anosInvestindo * 12)) -
-                  1)) /
-          (_rentabilidadeAnual / 12 / 100);
-    });
-  }
+  void _calcular(){
+    setState(()
+    {
 
-  atualizarJurosAcumulado() {
-    setState(() {
-      _jurosAcumulados = _resultado - _valorInvestido;
+      double vlrCasa = double.parse(valorCasa.text);
+      double pgtInicial = double.parse (pagamentoInicial.text);
+      int tmpPagar = int.parse(tempoPagar.text);
+
+      double vlrQuitar = vlrCasa - pgtInicial;
+      double juros = (vlrQuitar * 2) / 100;
+      double vlrQuitarJuros = vlrQuitar + juros;
+      double tempoRestante = (vlrQuitarJuros / tmpPagar);
+
+      _tempoAPagar = (tempoRestante);
+      _vlrInicialCasa = (vlrCasa);
+      _vlraSerPagocmJuros = (vlrQuitarJuros);
+      _time = (tmpPagar);
+
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: Text("Calculo Imobiliário"),
+        centerTitle: true,
+        backgroundColor: Colors.black,
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.refresh), onPressed: _resetFields)
+        ],
+      ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(height: 10.0),
-            Text('Calcule a Rentabilidade',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
-                )),
-            SizedBox(height: 10),
-            // ignore: prefer_const_constructors
-            Card(
-              margin: EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14)),
-              child: Padding(
-                  padding: const EdgeInsets.only(top: 14, bottom: 8),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(
-                          children: <Widget>[
-                            Text('Investimento mensal:', style: _textStyle),
-                            Spacer(),
-                            Text('${formatoReal.format(_investimentoMensal)}',
-                                style: _textStyle),
-                          ],
-                        ),
-                      ),
-                      Slider(
-                        value: _investimentoMensal,
-                        min: 0,
-                        max: 10000,
-                        activeColor: Colors.black,
-                        inactiveColor: Colors.green.shade100,
-                        divisions: 1000,
-                        onChanged: (double value) {
-                          setState(() {
-                            _investimentoMensal = value;
-                          });
-                          atualizarResultado();
-                          atualizarValorInvestido();
-                          atualizarJurosAcumulado();
-                        },
-                      ),
-                    ],
-                  )),
-            ),
-            Card(
-              margin: EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14)),
-              child: Padding(
-                  padding: const EdgeInsets.only(top: 14, bottom: 8),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(
-                          children: <Widget>[
-                            Text('Tempo Investido (anos):', style: _textStyle),
-                            Spacer(),
-                            Text(
-                              _anosInvestindo.toString() + ' anos',
-                              style: _textStyle,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Slider(
-                        value: _anosInvestindo.toDouble(),
-                        min: 0,
-                        max: 50,
-                        activeColor: Colors.black,
-                        inactiveColor: Colors.white,
-                        divisions: 50,
-                        onChanged: (double value) {
-                          setState(() {
-                            _anosInvestindo = value.toInt();
-                          });
-                          atualizarResultado();
-                          atualizarValorInvestido();
-                          atualizarJurosAcumulado();
-                        },
-                      ),
-                    ],
-                  )),
-            ),
-            Card(
-              margin: EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14)),
-              child: Padding(
-                  padding: const EdgeInsets.only(top: 14, bottom: 8),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(
-                          children: <Widget>[
-                            Text('Rentabilidade anual:', style: _textStyle),
-                            Spacer(),
-                            Text(
-                              _rentabilidadeAnual.toString() + '%',
-                              style: _textStyle,
-                            )
-                          ],
-                        ),
-                      ),
-                      Slider(
-                        value: _rentabilidadeAnual.toDouble(),
-                        min: 0,
-                        max: 25,
-                        activeColor: Colors.black,
-                        inactiveColor: Colors.white,
-                        divisions: 25,
-                        onChanged: (double value) {
-                          setState(() {
-                            _rentabilidadeAnual = value.toInt();
-                          });
-                          atualizarResultado();
-                          atualizarValorInvestido();
-                          atualizarJurosAcumulado();
-                        },
-                      ),
-                    ],
-                  )),
-            ),
-            Card(
-              margin: EdgeInsets.symmetric(horizontal: 14, vertical: 30),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 26),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          'Resultado',
-                          style: _textStyle,
-                        ),
-                        Text('${formatoReal.format(_resultado)}',
-                            style: _textStyle),
-                      ],
-                    ),
-                    Divider(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          'Valor Investido',
-                          style: _textStyle,
-                        ),
-                        Text('${formatoReal.format(_valorInvestido)}',
-                            style: _textStyle),
-                      ],
-                    ),
-                    Divider(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          'Juros Acumulado',
-                          style: _textStyle,
-                        ),
-                        Text('${formatoReal.format(_jurosAcumulados)}',
-                            style: _textStyle),
-                      ],
-                    ),
-                  ],
+        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Icon(Icons.house_rounded, size: 120.0, color: Colors.black),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                    labelText: "Valor da casa",
+                    labelStyle: TextStyle(color: Colors.black)),
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black, fontSize: 20.0),
+                controller: valorCasa,
+                validator: (value){
+                  if(value!.isEmpty){
+                    return "Insira o valor da casa";
+                  }
+                },
+              ),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                    labelText: "Pagamento Inicial",
+                    labelStyle: TextStyle(color: Colors.black)),
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black, fontSize: 20.0),
+                controller: pagamentoInicial,
+                validator: (value){
+                  if(value!.isEmpty){
+                    return "Insira o pagamento inicial";
+                  }
+                },
+              ),
+
+              TextFormField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                    labelText: "Tempo a pagar (meses)",
+                    labelStyle: TextStyle(color: Colors.black)),
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black, fontSize: 20.0),
+                controller: tempoPagar,
+                validator: (value){
+                  if(value!.isEmpty){
+                    return "Insira o tempo que deseja pagar!";
+                  }
+                },
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+                child: Container(
+                  height: 50,
+                  child: TextButton(
+                    onPressed: (){
+                      if(_formKey.currentState!.validate()){
+                        _calcular();
+                      }
+                    },
+                    child: Text('Calcular',style: TextStyle(color: Colors.white, fontSize: 20.0),),
+                  ),
                 ),
               ),
-            ),
+              Padding(
+                padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+              child : Text('As parcelas a serem pagas serão de RS ' + _tempoAPagar.toString() + ' por mês, no periodo de ' +_time.toString() + ' meses',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              )),
+              Padding(padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+              child : Text('O valor da casa sem juros é RS ' +_vlrInicialCasa.toString(),
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              )),
 
-            TextButton(onPressed: (){
-              Navigator.pushReplacement(context, MaterialPageRoute(
-              builder: (_) => principal()
-              ));
-            }, child: Text('Voltar'),)
-          ],
-        ),
-      ),
+              Padding(padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+              child: Text('O valor da casa com juros, após o abate do valor inicial é RS ' + _vlraSerPagocmJuros.toString(),
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              )),
+            ],
+          ),
+        )
+      )
     );
   }
 }
