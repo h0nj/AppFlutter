@@ -46,9 +46,8 @@ class _utilitarioState extends State<utilitario> {
       double pgtInicial = double.parse (pagamentoInicial.text);
       int tmpPagar = int.parse(tempoPagar.text);
 
-      double vlrQuitar = vlrCasa - pgtInicial;
-      double juros = (vlrQuitar * 2) / 100;
-      double vlrQuitarJuros = vlrQuitar + juros;
+      double juros = (vlrCasa * 2) / 100;
+      double vlrQuitarJuros = vlrCasa + juros;
       double tempoRestante = (vlrQuitarJuros / tmpPagar);
 
       _tempoAPagar = (tempoRestante);
@@ -154,7 +153,7 @@ class _utilitarioState extends State<utilitario> {
               )),
 
               Padding(padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-              child: Text('O valor da casa com juros, após o abate do valor inicial é RS ' + _vlraSerPagocmJuros.toString(),
+              child: Text('O valor da casa com juros é RS ' + _vlraSerPagocmJuros.toString(),
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.black, fontSize: 20),
               )),
