@@ -45,7 +45,7 @@ class _WidgetLoginState extends State<WidgetLogin> {
       }else if (password.length < 3 ){
         logado = "Senha fraca, faça contato com o ADMIN.";
 
-      } else if(email == "jhonatazadesouza@hotmail.com" && password == "123") {
+      } else if(email == "maisimoveis@gmail.com" && password == "123") {
         logado = "Bem Vindo.";
         Navigator.pushReplacement(context, MaterialPageRoute(
           builder: (_) => principal()

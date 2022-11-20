@@ -121,7 +121,7 @@ class MyHomeTerreno extends StatelessWidget {
     Map<String, dynamic> row = {
       DataBaseHelper.columRua: 'Rua Carlos Diesgois',
       DataBaseHelper.columBairro: 'São Cristovao',
-      DataBaseHelper.columValor: '300',
+      DataBaseHelper.columValor: '300.000',
     };
     final id = await dbHelper.insert(row);
     print('Linha inserida id: $id');
@@ -141,7 +141,7 @@ class MyHomeTerreno extends StatelessWidget {
       DataBaseHelper.columId: 1,
       DataBaseHelper.columRua: 'Rua Tomcobi',
       DataBaseHelper.columBairro: 'Vale Verde',
-      DataBaseHelper.columValor: '300',
+      DataBaseHelper.columValor: '300.000',
     };
     final linhasAfetadas = await dbHelper.update(row);
     print('Atualizadas $linhasAfetadas linha(s)');
